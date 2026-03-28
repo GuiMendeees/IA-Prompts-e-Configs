@@ -28,4 +28,26 @@ O Memory Bank serve como um contexto de longo prazo para a IA, contendo informa�
 
     * Gargaos de Perfomance COnhecidos ou Limitações Atuais: Se existem partes do sistema/pipeline que já operam no limite ou já são conhecidas por serem lentas
 
-    <b>Conteudo do Prompt<b>: #genetate-memory-bank.md# 
+    <b>Conteudo do Prompt</b>: #genetate-memory-bank.md# 
+
+
+
+### 2-  Geração da Tarefa (Task)
+
+Com o Memory Bank criado, o próximo passo é definir a tarefa específica que você deseja que a IA execute.
+1. Abra um novo chat no Cursor. É importante usar um chat separado para não misturar o contexto da geração do Memory Bank com a definição da tarefa.
+2. Descreava a tarefa e invoque o comando:
+
+> Descrição da Tarefa: Deixe claro que se trata da descrição da tarefa
+    -   [Descreva aqui a tarefa, de forma objetiva e completa]
+    -   [Qual o objetivo funcional da tarefa?]
+    -   [Quais são os requisitos técnicos e de negócio?]
+    -   [Quais arquivos ou módulos estão envolvidos?] Use @nome-do-arquivo para referencial-los no contexto do Cursor.
+    -   [Há regras especificas que devem ser seguidas?] Use @nome-da-rule para garantir que o plano gerado esteja em conformida com as regras.
+    -   [Qual o resultado esperado da tarefa?]
+
+    # Use separadores explicitos
+    /aic/plan-current-work # Invoque o comando
+
+
+<b>Conteudo do Prompt</b>: #plan-current-work.md# 
