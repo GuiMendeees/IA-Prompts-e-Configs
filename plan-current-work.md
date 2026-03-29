@@ -28,7 +28,7 @@ O planejamento deve ser operacional eliminando ambiguidades e decisões deixadas
     -   **IMPORTANTE:** Realize a análise e o planejamento da tarefa de forma **continua e fluida** seguindo as etapas do fluxo de trabalho RIPER.
     -   **NÃO precisa parar** após cada etapa para aguardar instruções.
     **Continue trabalhando até:**
-        -   :question:  Ter dúvidas especificas sobre os reqyusutis da tarefa que precisem de esclarecimento.
+        -   :question:  Ter dúvidas especificas sobre os requisitos da tarefa que precisem de esclarecimento.
         -   :construction: Encontrar ambiguidades ou lacunas nos requisitos que impelam um planejamento completo.
         -   :recycle: Precisar de validação de decisões de arquitetura ou abordagem importantes andes finalizar o plano.
         - Em qualquer um desses casos, **você deve perguntar ao usuário** para obter insumos necessários para continuar.

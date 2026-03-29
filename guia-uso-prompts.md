@@ -40,10 +40,15 @@ Com o Memory Bank criado, o próximo passo é definir a tarefa específica que v
 
 > Descrição da Tarefa: Deixe claro que se trata da descrição da tarefa
     -   [Descreva aqui a tarefa, de forma objetiva e completa]
+
     -   [Qual o objetivo funcional da tarefa?]
+
     -   [Quais são os requisitos técnicos e de negócio?]
+
     -   [Quais arquivos ou módulos estão envolvidos?] Use @nome-do-arquivo para referencial-los no contexto do Cursor.
+
     -   [Há regras especificas que devem ser seguidas?] Use @nome-da-rule para garantir que o plano gerado esteja em conformida com as regras.
+
     -   [Qual o resultado esperado da tarefa?]
 
     # Use separadores explicitos
@@ -51,3 +56,40 @@ Com o Memory Bank criado, o próximo passo é definir a tarefa específica que v
 
 
 <b>Conteudo do Prompt</b>: #plan-current-work.md# 
+
+### 3-  Execução da Tarefa (Task)
+
+Finalmente, com a tarefa detalhada em `@current-work.md`, você pode instruir a IA a executar as subtarefas uma a uma.
+    
+1.  Abra outro novo chat no Cursor. Novamente, use um chat dedicado para a execução, mantendo os contextos separados.
+2.  **Anexe arquivos ou pastas relevantes para a tarefa**, por exemplo toda a pasta ai/memorybank, o proprio current-work.md, arquivos de codigo fonte importantes (tudo isso via @)
+3. Execute o comando /aic/execute-current-work
+4. A IA irá ler o current-work.md, identificará a primeira subtarefa pendente [], a executará (pesquisando, planejando, codificando e revisando), e atualizara o current-work.md, marcando a subtarefa como concluida [X]
+5. Apos a IA confirmar a execução da subtarefa, você pode revisar as alterações. Para executar a proxima subtarefa, basta instruir a IA a "continuar com a proxima subtarefa" repitindo até ter todas concluidas.
+6. Caso prefira continuar a execução das subtarefas em outro chat, você pode executar o comando /aic/continue-current-work para continuar a execução das subtarefas.
+
+> 
+    ---
+    Observações adicionais:
+    Ajustes, observaçoes. novas subtarefas
+
+    /aic/continue-current-work
+
+Conteudo do prompt #execute-current-work.md#
+Conteudo do prompt #continue-current-work.md#
+
+Seguindo estes passos, você pode usar os prompots para guiar a IA de forma estruturada através do clico de desenvolvimento, aproveitando o contexto do projeto e a definição clara de tarefas.
+
+## Outros Comandos
+Aplicando prompt engeneering para melhorar seu prompt.
+
+O comando aic/improve-prompt aplica uma série de padrões de engenharia de prompt para otimizar ao máximo tudo que for passado como parâmetro para ele no footer do output e ainda dá dicas para melhorar ainda mais a execução do prompt gerado. Por exemplo:
+Passando este input
+>/aic/improve-prompt The flow controller code cleanup is taking over the @LivenessDetectionFlowControler.swift make a step by step plan using code-reasoning and refactor to a single class responsible for the flowcontrollers dependencies cleanup
+
+O agente então irá retornar um prompt extremamente detalhado e otimizado para ser o mais eficiente possível e o seu rodapé ainda virá dicas de como melhorar ainda mais a perfomance do prompt.
+O comando improve-prompt está pre-configurado para gerar prompt para o Claud, caso deseje outro LLM é necessário adicionar ao comando a LLM desejada:
+
+>/aic/improve-prompt PROMPT for Gemini: "< Prommpt a ser otimizado >"
+
+Conteudo do prompt #improve-prompt.md#
