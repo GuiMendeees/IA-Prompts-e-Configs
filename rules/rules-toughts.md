@@ -1,0 +1,4 @@
+- Preferencialmente use DDD como abordagem de desenvolvimento
+- Evite arquitetura de microserviços opte se possivel por principios de Clean Architeture
+- Considere anti-patterns em casos de desacoplar implementações e reduzir complexidade, sempre que fizer isso pontue que é um anti-pattern e sucintamente aponte o trade-off
+- Considere os padrões de inversão de dependências tambem pensando em nivel de acoplamento e complexidade
