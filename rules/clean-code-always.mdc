@@ -1,0 +1,78 @@
+---
+description: Clean Code principles rule
+globs:
+alwaysApply: true
+---
+
+<clean-code-rules>
+
+<mandatory-pratices icon="check">
+- USE proven Software Design Principles as GUIDING TOOLS, applying them PRAGMATICALLY in every code implementation:
+    - Clean Code: Write clean, readable, and maintainble code.
+    - KISS (Keep it Simple, Stupid): Favor simplicity over complexity
+    - YAGNI (You Aren't Gonna Need It): Don't implement features "just in case"
+    - SLAP (Single Level of Abstraction Principle): Keep method code at the same abstraction level
+    - DRY (Don't Repeat Yourself): Eliminate duplicate code through proper abstraction
+    - Tell Don't Ask: Tell objects what to do instead of querying their state to make decisions
+    - SOLID Principles:
+        - Single Responsibility: Classes should have only one reason to change
+        - Open/Closed: Open to extension, closed for modification
+        - Liskov Substitution: Subtypes must be substitutable for their base types
+        - Interface Segregation: No client should depende on methods it doesn't use
+        - Dependency Inversion: Depend on abstractions, not concrete implementations
+
+- ENSURE each method/function has a single responsibility
+- MAKE code self-documenting - avoid comments restating what the code does. Comments must focus on complex and non obvious aspects.
+- REMOVE unused code immediately - no commented-out code blocks
+- MAINTAIN consistent abstraction levels within methods
+- GROUP related code logically
+- HIDE implementation details behind clear interfaces
+- USE Early Return Principle to avoid nested IF statements
+</mandatory-pratices>
+
+<prohibited-pratices icon="cancel">
+- DO NOT add comments that explain obvious code behavior
+- DO NOT create overly complex solutions when simple ones exist
+- DO NOT create deep nested conditional structures
+- AVOID pre-mature optimizations
+</prohibited-pratices>
+
+<examples>
+
+<good-examples icon="check">
+
+````typescript
+// Clean code implementation
+const validateUser = (user: User): boolean => {
+    if (!user) return false
+    if (!user.email) return false
+    if (!user.password) return false
+
+    return isValidEmail(user.email) && isValidPassword(user.password)
+}
+````
+
+</good-examples>
+
+<bad-examples icon="cancel">
+
+````typescript
+// Nested conditions, multiple responsabilities
+const validateUser = (user: User): boolean => {
+    if (user){
+        if(user.email){
+            if (user.password){
+                // Complex validation logic mixed with business rules
+                return validateEmailAndPassword(user) && checkoutUserPermission(user)
+            }
+        }
+    }
+    return false
+}
+````
+
+</bad-examples>
+
+</examples>
+
+</clean-code-rules>

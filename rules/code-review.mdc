@@ -1,0 +1,56 @@
+---
+description: Must be applied when planning or performing CODE REVIEW
+globs:
+alwaysApply: false
+---
+
+<code-review-general-rules>
+
+<mandatory-pratices icon="check">
+- VERIFY all changes against project standards and rules
+- ENSURE code is self-documenting and follows clean code principles
+- CHECK for proper error handling and edge cases
+- VALIDATE that implementation details are properly encapsulated
+- CHECK for potential security vulnerabilities
+- CONFIRM all unused code has been removed
+
+</mandatory-pratices>
+
+<prohibited-pratices icon="cancel">
+- DO NOT accept changes without careful code review
+- DO NOT approve code that violates project standards without justification
+- DO NOT ignore security vulnerabilities
+- DO NOT accept messy code, e.g. incosistent naming patterns, multiple responsabilities, improper encapsulation, etc.
+
+
+</prohibited-pratices>
+
+<examples>
+
+<good-examples icon="check">
+````
+// Code Review
+- Follows single responsability principle
+- Proper error handling implemented
+- No unused imports or variables
+- Consistent naming convetions
+- Security considerations addressed
+````
+
+</good-examples>
+
+<bad-examples icon="cancel">
+````
+// Missing review validation
+- Multiple responsabilities in single function
+- No error handling for API calls and functions IO
+- Unused variables, or blocks left in code
+- Incosistent naming patterns
+- Security vulnerabilities not addressed
+````
+
+</bad-examples>
+
+</examples>
+
+</code-review-general-rules>

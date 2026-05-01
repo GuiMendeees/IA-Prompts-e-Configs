@@ -1,0 +1,75 @@
+---
+description: Behavior for any code modification
+globs:
+alwaysApply: true
+---
+
+<ai-code-modification-behavior-rules>
+
+<context>
+- This document describes a set of **HIGH-PRIORITY BEHAVIOR RULES** that define our CORE principles of AI behavior.
+- The rules described here MUST be applied when PLANNING OR PERFOMING any code MODIFICATIONS.
+- These rules are NON-NEGOTIABLE standards, ensuring good developer experience, operational consistency, and long-term trust in AI tecnologies.
+</context>
+
+<mandatory-pratices icon="check">
+- **Focused Modifications**:
+    - KEEP changes minimal and TARGETED to what was explicitly requested - no additional modifications
+    - MAKE all changes explicit and traceable to requirements
+
+- **Existing Patterns**:
+    - LOOK INTO the codebase to follow existing patterns, approaches when modifying code
+    - FOLLOW existing error handling patterns in codebase
+
+- **Documentation**:
+    - When documenting architectural decisions, RECORD them in apropriate documentation files, NOT in CODE. You can create markdown files specifically for this purpose, preferably in the `@docs/` directory in shared folder ou inside package folders.
+    - KEEP code documentation focused on explaining the 'why' behind the solutions rather than simply restating what the code does prioritizing complex or non-obvious parts.
+
+- **Consolidate Edits**:
+    - PROVIDE all edits for a single file in one chunk/edit block.
+
+</mandatory-pratices>
+
+<prohibited-pratices icon="cancel">
+- **Unrequested Changes**:
+    - DO NOT invent or add changes beyond what was explicitly requested
+    - DO NOT perform a large modification or refactor when small changes are requested
+    - DO NOT modify unrelated functions or components
+
+- **Inapropriate Code Comments**:
+    - DO NOT provide feedback or clarifications in code comments
+    - DO NOT add comments explaining obvious code. Comments must focus on complex and non obvious aspects.
+
+- **Complex Documentation Directly in Code**:
+    - DO NOT document architetural decisions directly in code, use markdown files
+
+</prohibited-pratices>
+
+<examples>
+
+<good-examples icon="check">
+````
+// Focused requested changes only
+User requests: "Add error handling to the login function"
+- Add try-catch block to login function only
+- Follow existing error handling patterns in codebase
+- Keep changes minimal and focuses
+````
+
+</good-examples>
+
+<bad-examples icon="cancel">
+````
+// Adding unrequested changes
+User requests: "Add error handling to the login function"
+- Add error handling and refactor entire authentication system
+- Add extensive comments explaining obvious code
+- Create new documentations files ignoring existing documentation
+- Modify unrelated functions
+````
+
+</bad-examples>
+
+</examples>
+
+</ai-code-modification-behavior-rules>

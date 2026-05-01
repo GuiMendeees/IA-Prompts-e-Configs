@@ -38,7 +38,11 @@ Com o Memory Bank criado, o próximo passo é definir a tarefa específica que v
 1. Abra um novo chat no Cursor. É importante usar um chat separado para não misturar o contexto da geração do Memory Bank com a definição da tarefa.
 2. Descreava a tarefa e invoque o comando:
 
-> Descrição da Tarefa: Deixe claro que se trata da descrição da tarefa
+> 
+    Descrição da Tarefa: 
+
+    Deixe claro que se trata da descrição da tarefa
+
     -   [Descreva aqui a tarefa, de forma objetiva e completa]
 
     -   [Qual o objetivo funcional da tarefa?]

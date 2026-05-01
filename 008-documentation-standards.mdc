@@ -1,0 +1,222 @@
+---
+description: Comprehensive documentation standards for style, structure, and quality
+globs: ["**/docs/**/*.md", "**/*.md", "**/README.md"]
+alwaysApply: true
+---
+
+# Documentation Standards
+
+## Core Principles
+
+1. **Avoid technical jargon** whenever possible
+2. **Use active voice** - write "Click the button" not "The button should be clicked"
+3. **Use simple language** for complex ideas, not the other way around
+4. **Be succinct** - respect the reader's time
+5. **Write for the reader** - understand their knowledge level and needs
+6. **Provide context** - explain why, not just how
+7. **Include examples** - show, don't just tell
+8. **Keep it current** - documentation must match actual implementation
+
+## Documentation Structure
+
+### Required Folder Organization
+
+```
+project-root/
+└── docs/
+    ├── README.md              # Central documentation home (REQUIRED)
+    ├── getting-started/       # Setup and onboarding
+    ├── user-guide/            # End-user documentation
+    ├── developer-guide/       # Developer documentation
+    ├── api/                   # API documentation
+    ├── architecture/          # System design docs
+    └── troubleshooting/       # Problem-solving guides
+```
+
+### Central Documentation Home (REQUIRED)
+
+**Every project MUST have `/docs/README.md` as the central documentation hub.**
+
+```markdown
+# Project Name Documentation
+
+## Quick Links
+- [Getting Started](./getting-started/README.md)
+- [User Guide](./user-guide/README.md)
+- [Developer Guide](./developer-guide/README.md)
+- [API Documentation](./api/README.md)
+
+## Documentation Structure
+Brief explanation of how documentation is organized.
+
+## Contributing
+Link to contribution guidelines.
+```
+
+### Document Template
+
+Every documentation file should follow this structure:
+
+```markdown
+# [Clear, Descriptive Title]
+
+## Overview
+Brief explanation of what this document covers and why it's important.
+
+## Prerequisites
+What the reader needs to know or have before reading this document.
+
+## [Main Content Sections]
+Organized by logical flow or user journey.
+
+## Examples
+Practical examples showing how to use or implement.
+
+## Troubleshooting
+Common issues and their solutions.
+
+## Related Documentation
+Links to related docs and next steps.
+```
+
+## Writing Standards
+
+### Content Guidelines
+
+#### Overview Section
+- **Purpose**: What problem does this solve?
+- **Scope**: What does this document cover?
+- **Audience**: Who should read this?
+- **Time estimate**: How long will this take to read/implement?
+
+#### Main Content
+- **Start with purpose** - what problem does this solve?
+- **Include examples** - code snippets, screenshots, diagrams
+- **Provide context** - when/why to use this feature
+- **Include troubleshooting** - common issues and solutions
+
+#### Code Examples
+- **Complete and runnable** - readers should be able to copy/paste
+- **Well-commented** - explain non-obvious parts
+- **Show real-world usage** - not just hello world
+- **Include expected output** - what should happen
+
+### Style Guidelines
+
+#### Language & Tone
+- **Use active voice**: "Click the button" not "The button should be clicked"
+- **Write for the target audience**: User vs developer documentation
+- **Keep sentences short and clear**: Aim for 15-20 words per sentence
+- **Use consistent terminology**: Define terms once, use them consistently
+- **Include step-by-step instructions**: For procedures
+
+#### Formatting
+- **Use headings** to break up content (h2, h3, h4)
+- **Use lists** for items, steps, or options
+- **Use code blocks** with language syntax highlighting
+- **Use tables** for structured data
+- **Use callouts** for important notes, warnings, tips
+
+#### Callout Format
+```markdown
+> **Note**: Additional information that's helpful but not critical
+
+> **Warning**: Important information about potential issues
+
+> **Tip**: Helpful suggestions or best practices
+```
+
+## Linking Standards
+
+### Internal Documentation Links
+- **Always use relative paths** from the current document
+- **Link to specific sections** when possible (e.g., `../user-guide/features.md#authentication`)
+- **Use descriptive link text** (e.g., "See [Authentication Guide](../user-guide/authentication.md)")
+
+### Cross-Reference Requirements
+- **Every new document MUST be linked from central home**
+- **Related documents should cross-reference each other**
+- **Use "See also" sections** for related documentation
+
+### Link Text Guidelines
+```markdown
+<!-- Good -->
+See the [Getting Started Guide](./getting-started.md) for setup instructions.
+
+<!-- Bad -->
+Click [here](./getting-started.md) for more information.
+```
+
+## Quality Standards
+
+### Content Requirements
+- **Accuracy**: All information must be correct and up-to-date
+- **Completeness**: Cover all necessary information
+- **Clarity**: Easily understood by target audience
+- **Examples**: Include practical, working examples
+- **Searchability**: Use clear headings and keywords
+
+### Documentation Metrics
+Track and maintain:
+- **Documentation coverage** (features documented vs implemented)
+- **Link health** (broken links percentage)
+- **Documentation freshness** (last updated dates)
+- **User feedback** on documentation quality
+
+## Enforcement Protocol
+
+### Pre-Documentation Checklist
+Before creating any documentation, verify:
+- [ ] `/docs` folder exists
+- [ ] Central documentation home exists and is current
+- [ ] Appropriate subfolder structure is in place
+- [ ] Link from central home is planned
+
+### Post-Documentation Requirements
+After creating documentation:
+- [ ] Add link to central documentation home
+- [ ] Update any related documentation with cross-references
+- [ ] Verify all internal links work
+- [ ] Add/update last_updated date in frontmatter
+
+### Regular Audits
+- **Monthly**: Check for broken links
+- **Per milestone**: Verify documentation completeness
+- **Per release**: Update all last_updated dates
+- **Quarterly**: Review documentation structure and organization
+
+## Integration with Workflow
+
+### Project Plan Integration
+- **Documentation tasks** must be included in project milestones
+- **Documentation review** required before feature completion
+- **Documentation updates** tracked in project plan
+
+### Git Workflow Integration
+- **Documentation changes** follow same approval process as code
+- **Documentation commits** reference related code changes
+- **Documentation review** included in pull request process
+
+## Communication Templates
+
+### When Creating New Documentation
+```
+📚 **Documentation Created**: [Document Name]
+- **Location**: `/docs/[subfolder]/[filename].md`
+- **Linked from**: [Central home section]
+- **Cross-references**: [List of related docs]
+- **Next steps**: [Any follow-up documentation needed]
+```
+
+### When Updating Documentation Structure
+```
+🔄 **Documentation Structure Update**
+- **Changes**: [What was modified]
+- **Impact**: [How this affects existing docs]
+- **Links updated**: [List of modified links]
+- **Central home updated**: [Yes/No]
+```
+
+---
+
+**This rule ensures all documentation is clear, well-organized, and maintainable through consistent standards.**
