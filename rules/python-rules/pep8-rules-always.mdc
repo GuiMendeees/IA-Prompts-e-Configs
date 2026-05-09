@@ -1,0 +1,227 @@
+---
+alwaysApply: true
+---
+
+# Python PEP-8 Style Guide
+
+## Critical Rules
+
+### Code Layout
+
+- Use 4 spaces per indentation level, never tabs
+- Limit all lines to120 characters maximum (72 for docstrings/comments)
+- Use blank lines to separate functions and classes (two blank lines) and logical sections within functions (one blank line)
+- Group imports in the following order with blank line between groups (standard library, third-party, local applications)
+- Always use imports on separete lines (`import os, sys` is incorrect)
+- Avoid wildcard imorts (`from module import *`)
+- Place module-level dunder names (like `__all__`) at the beginning of the module after docstrings
+- Break lines before binary operators for mathematical expressions, after operators for function parameters
+- Use UTF-8 enconding for source files
+
+### Naming Conventions
+
+#### Naming Styles
+
+- `b` (single lowercase letter) - Use only for temporary variables or local counters
+- `B` (single uppercase letter) - Avoid, except for type variable names
+- `lowercase` (all lowercase) - Use for module and package names
+- `lower_case_with_underscores` (snake_case) - Standard for function, method and variable names
+- `UPPER_CASE_WITH_UNDERSCORES` - Use for module-level constants
+- `CapitalizedWords` (CamelCase) - Standard for class and exception names
+- `mixedCase` - NOT recommended, but maintained for compatibility ith external libraries
+- `Capitalized_Words_With_Underscores` - Not recommended, avoid this style
+
+#### Package and Module Names
+
+- Always use short, lowercase names for modules (`utils.py`, `db.py`, `dag.py`)
+- Use underscores only if it improves readability (`data_analysis.py`, `perfomance_evaluation.py`, `feature_engineering.py`)
+- Packages should have even shorter names, preferably without underscores (`requests`, `numpy`)
+
+#### Class Names
+
+- Use CapitalizedWords style for classes (`UserProfile`, `DatabaseConnection`)
+- If a class is primarily a callable, a function-like convention may be used (`print_list()`)
+- Special interfaces (e.g. metaclasses) can have a leading underscore to indicate virtuality
+
+##### Exception Names
+
+- Exceptions should be classes and follow the CapitalizedWords convention
+- Always en with the suffix "Error" if the exception is actually an error (`ConnectionError`)
+- Don't end with "Exception" to maintain consistency with built-in exceptions
+
+#### Function and Variable Names
+
+- Use snake_case for function and variable names (`calculate_total()`, `user_id`)
+- Functions and methods with action capability should reflect verbs (`calculate_total()`, `verify_token()`)
+- Variables should reflect nouns or adjectives (`user_name`, `is_valid`)
+- For functions that perform operations with side effects, prefer names like `process_` instead of `processing_`
+
+### Function and Method Arguments
+
+- Use `self` for the first argument of instance methods
+- Use `cls` for the first argument class methods
+- If an argument name collides with a keyword, prefer adding a trailing underscore (`print_`) rather than abbreviating the word
+
+### Method Names and Instance Variables
+
+- Use the same patterns as for functions: snake_case
+- For non-public methods and internal instance variables, use a leading underscore (`_private_method`)
+- To avoid name conficts with subclasses, use a leading double underscore (`__very_private`)
+
+### Constants
+
+- Constants are defined at module level
+- Use UPPER_CASE_WITH_UNDERSOCRES for constants (`MAX_CONNECTIONS`, `DEFAULT_TIMEOUT`)
+- Constants should never be redefined after their initial declaration
+
+### Access Modifiers
+
+- Python doesn't have access modifiers, but uses naming convenions to indicate visibility:
+    - No prefix for public attributes and methods (accessible from anywhere)
+    - Single underscore prefix (`_internal_method`) for internal/protected
+    - Double underscore prefix (`__private_method`) for avoiding name conflicts in inheritance (not privacy)
+
+### Type Annotations
+
+- Always use type annotations on all function parameters and return values
+- Use the PEP-484 syntax for type annotations
+- Maintain 1 space after the colon and before the type
+- Always import complex types from the `typing` module (`List`, `Dict`, `Optional`, etc.)
+- For instance methods, annotate `cls` parameter with `Type[ClassName]`
+- Use `-> None` for functions that don't return a value
+- Use `Optional[Type]` for parameters that can be None
+- Always provide return type `def func()-> None` instead of just `def func():`
+
+### Whitespace
+
+- No whitespace inside parentheses, brackets or braces
+- No whitespace before a comma, semicolo, or colon (except at end of line)
+- No a space around `=` for keyword arguments or defaults: `func(key=value)`
+- Sorround binary operators with single space on both sides: `x = y + z`
+- For function calls, no space between function name and opening parenthesis: `func(arg)`
+- Use four spaces of identation in continuation lines
+
+### Comments and Documentation
+
+- Comments should be complete sentences, starting with capital letter
+- Block comments should have same identation as code they describe
+- Inline comments should be separated by at least two spaces from code
+- Use docstrings for all public modules, function, classes and methods
+- Write docstrings using triple double-quotes (`"""`)
+- Include Args, Returns, Raises in docstrings for functions
+- Keep comments up-to-date when code changes
+
+### Programming Pratices
+
+- Compare singletons with `is`: `if x is None:` not `if x == None`
+- Check empty sequences directly: `if not seq:` not `if len(seq) == 0:`
+- Use `isinstance(obj, type)` instead of comparing types directly
+- Use context managers with `with` statement for resource management
+- Always catch specific exceptions (`except ValueError:`) not bare `except:`
+- Prefer `.startswith()` and `.endswith()` over slicing for string prefix/suffix
+- Return values consistently from functions: all returns provide a value or None
+- Use type annotations with proper spacing: `def func(param: type) -> return_type:`
+
+# Examples
+## Good: Modules and Imports
+```python
+"""Módulo de processamento de usuários e integração com banco de dados."""
+
+import os
+import sys  # Bibliotecas padrão em linhas separadas
+
+import pandas as pd  # Terceiros
+import requests
+
+from .database import DatabaseConnection  # Aplicação local
+from .utils import calculate_hash
+
+__all__ = ["UserProcessor", "MAX_RETRIES"]  # Dunder names após docstring
+
+MAX_RETRIES = 5  # Constante em UPPER_CASE
+DEFAULT_TIMEOUT = 30
+```
+
+## Good: Classes, Methods, Names
+```python
+class UserProcessor:
+    """
+    Processa informações de usuários e gerencia estados internos.
+    
+    Attributes:
+        connection_string (str): URI para conexão com banco.
+    """
+
+    def __init__(self, connection_string: str) -> None:
+        self.connection_string = connection_string
+        self._internal_cache: dict = {}  # Atributo interno (prefixo _)
+        self.__id_mapping: list = []     # Evita conflitos em herança (prefixo __)
+
+    def process_user_data(self, user_id: int, force_update: bool = False) -> bool:
+        """
+        Processa os dados de um usuário específico.
+
+        Args:
+            user_id: Identificador único do usuário.
+            force_update: Se True, ignora o cache interno.
+
+        Returns:
+            bool: True se o processamento foi bem-sucedido.
+        """
+        if not force_update and user_id in self._internal_cache:
+            return True
+        
+        # Uso de snake_case para variáveis e operadores com espaços
+        result = self._fetch_from_api(user_id)
+        return result
+
+    def _fetch_from_api(self, id_: int) -> bool:  # Trailing underscore para evitar conflito
+        # Lógica interna
+        return True
+
+    @classmethod
+    def from_config(cls, config_path: str) -> "UserProcessor":
+        # Uso de cls para métodos de classe
+        return cls(connection_string=config_path)
+```
+
+## Good: Types and Spaces
+```python
+from typing import List, Optional, Dict
+
+def calculate_total_score(
+    scores: List[float], 
+    multiplier: float = 1.2,
+    offset: Optional[float] = None
+) -> float:
+    """Calcula a pontuação total com base em uma lista de valores."""
+    
+    if not scores:  # Verificação de sequência vazia conforme a regra
+        return 0.0
+
+    total = sum(scores) * multiplier
+    
+    if offset is not None:  # Comparação de singleton com 'is'
+        total += offset
+        
+    return total
+```
+
+## Good: Erros and Best Pratices
+```python
+def load_data_from_file(file_path: str) -> Dict:
+    """Carrega dados de um arquivo JSON de forma segura."""
+    
+    # Uso de context manager 'with'
+    try:
+        with open(file_path, encoding="utf-8") as file:
+            data = file.read()
+            
+        if data.startswith("{"):  # Uso de .startswith() em vez de slice
+            return {"status": "success", "content": data}
+            
+    except FileNotFoundError:  # Erro específico, nunca bare except
+        return {"status": "error", "message": "File not found"}
+    
+    return {"status": "empty"}  # Retorno consistente
+```

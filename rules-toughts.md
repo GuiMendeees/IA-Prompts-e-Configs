@@ -7,3 +7,4 @@
 - dataclasses para containers de dados
 - nunca armazenar secrets em codigo
 - sempre que necessario isolar variaveis de ambientes em arquivos YAML de env e isolar codigos de argparser e afins em modulo cli.py
+https://www.youtube.com/watch?v=MiO0jik89z4

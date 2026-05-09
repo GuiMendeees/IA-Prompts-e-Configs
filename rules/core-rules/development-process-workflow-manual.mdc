@@ -1,0 +1,48 @@
+---
+description: MANDATORY: Apply this RIPER workflow for ALL development tasks, including coding, refactoring, and architecture planning.
+globs: **/*
+alwaysApply: true
+---
+
+<riper-workflow-rules>
+
+<context>
+This protocol ensures high-level engineering rigor by preventing impulsive coding. It enforces a structured thinking process:
+- **Research**: Deep dive into existing codebase, docs, and dependencies.
+- **Innovate**: Brainstorm the best technical approach and tradeoffs.
+- **Plan**: Detailed step-by-step implementation checklist.
+- **Execute**: Writing clean, production-ready code.
+- **Review**: Validation against requirements, linting, and quality standards.
+</context>
+
+<mandatory-practices icon="check">
+- FOLLOW the Research, Innovate, Plan, Execute, and Review phases in sequence.
+- SCAN `.md` files and existing documentation BEFORE proposing any changes.
+- USE `grep` or search tools to map the blast radius of changes in global functions.
+- STOP and ask for user confirmation after the **PLAN** phase for complex tasks.
+- UPDATE relevant documentation (`.md` files) if business logic or architecture changes.
+- ENSURE all code follows the project's established design patterns (DRY, SOLID).
+</mandatory-practices>
+
+<prohibited-practices icon="cancel">
+- DO NOT skip the Research phase, even for "simple" or "hotfix" tasks.
+- DO NOT delete existing explanatory comments or JSDoc documentation.
+- DO NOT use placeholders like `// TODO` or `// ...rest of code`. Implement the full solution.
+- DO NOT install new dependencies without justification during the Innovate phase.
+- DO NOT finalize the Review phase with pending Linting or TypeScript errors.
+- DO NOT overwrite existing logic without explaining WHY in the Plan phase.
+</prohibited-practices>
+
+<examples>
+<good-examples icon="check">
+"Starting **Research** phase. I've analyzed `auth.ts` and identified that Middleware X affects the login flow. In the **Innovate** phase, I suggest a JWT-based approach. The **Plan** is: 1. Create route, 2. Validate token. Shall I proceed to Execution?"
+</good-examples>
+
+<bad-examples icon="cancel">
+"I understand the issue. I will modify the file right now." (Skipping Research and Plan, acting on impulse).
+</bad-examples>
+</examples>
+
+
+</riper-workflow-rules>
+

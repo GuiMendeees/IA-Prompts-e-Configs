@@ -1,0 +1,165 @@
+---
+description: Python Tests principles rules
+globs:
+alwaysApply: true
+---
+
+# PyTest Best Practices
+
+## Critical Rules
+
+### Project Strucuture
+- Prefer tests outside application or modules code (`tests/` directory) for larger projects
+- Configure importlib import mode in pyproject.toml: `--import-mode=importlib`
+
+### Naming Conventions
+- Follow PyTest's test discovery patterns: `test_*.py` files
+- Name test functions with `test_` prefix
+- Place test classes with `Test` prefix (without `__init__` method)
+- Use descriptive test names (e.g. `test_user_creation_with_valid_data`)
+
+## Test Organization
+- Group related tests in classes (e.g., `TestUserCreation`, `TestUserAutentication`)
+- Use setup and teardown hook for proper initialization and cleanup
+- Keep tests isolated and independent of each other
+- Each test should focus on one specific aspect of the code
+
+### Fixtures
+- Use fixtures for reusable test setup and dependencies
+- Choose appropriate fixtures scopes (function, class, module, session)
+- Use yield fixtures for proper resource cleanup
+- Place shared fixtures in `conftest.py` files
+- Use autouse fixtures only when absolutely necessary
+
+### Parametrization
+- Use `@pytest.mark.parametrize` for testing multiple input combinations
+- Parametrize fixtures to run tests with different configurations
+- Combine parametried fixtures to create test matrice
+
+### Markers
+- Use built-in markers: `skip`, `skipif`, `xfail` appropriately
+- Define custom markers in pyproject.toml or pytest.ini
+- Use markers to categorize tests (slow, integration, unit, etc.)
+
+### Mocking
+- Use unittest.mock for creating mocks and patching
+- Combine mocks with fixtures for reusability
+- Verify mock calls and interactions
+
+### Output Capture
+- Use capsys fixture to capture stdout/stderr
+- Use caplog fixture to test logging
+
+### Configuration
+- Centralize pytest configuration in pyproject.toml or pytest.ini
+- Define test paths, file patterns, markers, and optios
+- Use tox for testing in multiple environments
+- Dont't run tests via setuptools (deprecated)
+
+### Best Pratices
+- Keep tests, simple, focused and isolated
+- Use descriptive test function names
+- Test edge cases and boundary conditions
+- Check exceptions properly with pytest.raises
+- Document complex tests with docstrings
+- Use linting tools like flake8-pytest-style
+- Avoid brittle tests dependent on timing or environment
+
+## Examples
+
+<example>
+
+# Good: Project structure with tests separete
+
+````
+pyproject.toml
+src/
+mypkg/
+    __init__.py
+    app.py
+tests/
+    test_app.py
+````
+
+# Good: Pytest configutation
+
+```pyproject.toml
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_clases = "Test*"
+python_functions = "test_*"
+markers = [
+    "slow: marks tests that take a long time to run",
+    "integration: marks integration tests"
+]
+
+addopts = [
+    "--import-mode=importlib",
+    "-v
+]
+```
+
+# Good: Mocks
+
+```python
+# test_service.py
+from mypackage.service import MyService
+from mypackage.external_api import get_data
+
+def test_my_service_fetches_data(mocker):
+    mock_get_data = mocker.patch("mypackage.service.get_data")
+    mock_get_data.return_value = {"key": "mocked_value"}
+
+    service = MyService()
+    result = service.fetch_and_process()
+
+    mock_get_data.assert_called_once()
+    assert result == "processed_mocked_value"
+```
+
+# Good: Parametrization
+```python
+import pytest
+
+@pytest.mark.parametrize("input, expected_output", [
+    (1, 2),
+    (2, 3),
+    (0, 1),
+])
+def test_increment_function(input, expected_output):
+    assert increment(input) == expected_output
+```
+
+# Good: Single Asserts
+```python
+def test_user_creation_sets_email():
+    user = create_user("test@example.com")
+    assert user.email == "test@example.com"
+
+def test_user_creation_sends_welcome_email():
+    user = create_user("test@example.com")
+    assert email_service.last_sent_email == "test@example.com"
+```
+
+# Good: Fixtures
+
+```python
+# conftest.py
+import pytest
+
+@pytest.fixture(scope="function")
+def db_session():
+    # Setup: Create a fresh database session
+    session = create_test_db_session()
+    yield session  # Test runs here
+    # Teardown: Close and clean up the session
+    session.close()
+
+@pytest.fixture(scope="module")
+def api_client(db_session): # Fixtures can use other fixtures
+    # Setup: Create an API client with a specific DB session
+    client = TestClient(db_session)
+    yield client
+    # Teardown: Cleanup client resources
+```
